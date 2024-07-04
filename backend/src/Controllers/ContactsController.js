@@ -12,7 +12,7 @@ class ContactsController {
       let message = "";
 
       const contacts = await prisma.contact.findMany({
-        where: { id: 1 }
+        where: { id: 1, user_id: req.user.id }
       });
 
 
