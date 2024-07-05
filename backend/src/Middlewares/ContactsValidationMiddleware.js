@@ -64,7 +64,7 @@ class ContactsValidationMiddleware {
 
   async updateById(req, res, next) {
     try {
-      if(!req.body.id ) {
+      if (!req.body.id) {
         return res.status(404).json({
           message: "Please inform a contact to be edited!"
         })
@@ -77,15 +77,15 @@ class ContactsValidationMiddleware {
           user_id: req.user.id
         }
       })
-      
-      if(!toBeEdited) {
+
+      if (!toBeEdited) {
         return res.status(500).json({
           message: "Contact not found in your contacts list!"
         })
       }
-      
+
       next()
-    } 
+    }
     catch (error) {
       return res.status(500).json({
         message: error
