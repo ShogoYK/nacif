@@ -7,7 +7,6 @@ class ContactsController {
 
     try {
       const prisma = new PrismaClient()
-
       let statusCode = 500;
       let message = "";
 
@@ -26,7 +25,6 @@ class ContactsController {
         contacts
       })
     }
-
     catch (error) {
       return res.status(500).json({
         message: error.message
@@ -37,9 +35,7 @@ class ContactsController {
   async addContact(req, res) {
     try {
       const prisma = new PrismaClient()
-
-      const {number, name} = req.body;
-
+      const { number, name } = req.body;
       const newContact = await prisma.contact.create({
         data: {
           user_id: req.user.id,
@@ -55,6 +51,24 @@ class ContactsController {
     }
     catch (error) {
       return res.status(501).json({
+        message: error
+      })
+    }
+  }
+
+  async deleteContactById(req, res) {
+    try {
+      const prisma = new PrismaClient();
+      await prisma.contact.delete({
+        where: { id: req.body.id }
+      })
+
+      return res.status(200).json({
+        message: "Contact deleted successfully!"
+      })
+    }
+    catch (error) {
+      return res.status(500).json({
         message: error
       })
     }

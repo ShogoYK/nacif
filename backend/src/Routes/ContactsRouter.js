@@ -7,5 +7,6 @@ const router = express.Router()
 
 router.get("/all", AuthMiddleware.authorize, ContactsController.getAllContacts);
 router.post("/add", AuthMiddleware.authorize, ValidationMiddleware.newContact, ContactsController.addContact);
+router.delete("/delete", AuthMiddleware.authorize, ValidationMiddleware.deleteById, ContactsController.deleteContactById);
 
 export default router;
