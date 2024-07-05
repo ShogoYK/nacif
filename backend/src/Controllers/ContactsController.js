@@ -7,7 +7,7 @@ class ContactsController {
 
     try {
       const prisma = new PrismaClient()
-      let statusCode = 500;
+      let statusCode = 200;
       let message = "";
 
       const contacts = await prisma.contact.findMany({

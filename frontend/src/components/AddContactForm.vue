@@ -14,9 +14,10 @@ export default {
             'Authorization': localStorage.getItem('token')
           }
         })
-
-      console.log(res.data);
-    }
+        this.$emit('updated', true)
+        this.name = ''
+        this.number = ''
+    },
   },
   data() {
     return {
