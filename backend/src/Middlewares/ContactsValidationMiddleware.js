@@ -61,6 +61,37 @@ class ContactsValidationMiddleware {
     next()
 
   }
+
+  async updateById(req, res, next) {
+    try {
+      if(!req.body.id ) {
+        return res.status(404).json({
+          message: "Please inform a contact to be edited!"
+        })
+      }
+
+      const prisma = new PrismaClient()
+      const toBeEdited = await prisma.contact.findFirst({
+        where: {
+          id: req.body.id,
+          user_id: req.user.id
+        }
+      })
+      
+      if(!toBeEdited) {
+        return res.status(500).json({
+          message: "Contact not found in your contacts list!"
+        })
+      }
+      
+      next()
+    } 
+    catch (error) {
+      return res.status(500).json({
+        message: error
+      })
+    }
+  }
 }
 
 export default new ContactsValidationMiddleware()

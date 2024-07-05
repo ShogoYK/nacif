@@ -73,6 +73,29 @@ class ContactsController {
       })
     }
   }
+
+  async updateContactById(req, res) {
+    try {
+      const prisma = new PrismaClient()
+      const edited = await prisma.contact.update({
+        where: { id: req.body.id },
+        data: {
+          name: req.body.name ? req.body.name : undefined,
+          number: req.body.number ? req.body.number : undefined,
+        }
+      })
+
+      return res.status(200).json({
+        message: "Edited successfully!",
+        contact: edited
+      })
+    }
+    catch (error) {
+      return res.status(500).json({
+        message: error
+      })
+    }
+  }
 }
 
 export default new ContactsController()
