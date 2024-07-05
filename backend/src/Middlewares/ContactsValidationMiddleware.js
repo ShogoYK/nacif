@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-class ValidationMiddleware {
+class ContactsValidationMiddleware {
 
   validateLogin(req, res, next) {
     if (!req.body.email || !req.body.password) {
@@ -63,4 +63,4 @@ class ValidationMiddleware {
   }
 }
 
-export default new ValidationMiddleware()
+export default new ContactsValidationMiddleware()
