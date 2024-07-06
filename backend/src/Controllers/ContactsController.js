@@ -7,11 +7,11 @@ class ContactsController {
 
     try {
       const prisma = new PrismaClient()
-      let statusCode = 500;
+      let statusCode = 200;
       let message = "";
 
       const contacts = await prisma.contact.findMany({
-        where: { id: 1, user_id: req.user.id }
+        where: { user_id: req.user.id }
       });
 
 
@@ -31,6 +31,31 @@ class ContactsController {
       })
     }
   }
+  async getContactById(req, res) {
+    try {
+      const prisma = new PrismaClient()
+      const contact = await prisma.contact.findUnique({
+        where: {id: +req.params.id}
+      })
+
+      if(!contact) {
+        return res.status(404).json({
+          message: "Contact not found"
+        })
+      }
+
+      return res.status(200).json({
+        message: 'success',
+        contact
+      })
+    }
+    catch (error) {
+      return res.status(500).json({
+        message: error
+      })
+    }
+  }
+
 
   async addContact(req, res) {
     try {
