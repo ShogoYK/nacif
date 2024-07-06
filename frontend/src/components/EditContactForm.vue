@@ -16,7 +16,6 @@ export default {
     const res = await axios.get(`http://127.0.0.1:8000/contacts/${this.id}`)
 
     const data = res.data;
-    console.log(data);
     this.name = data.name;
     this.number = data.number;
   },
